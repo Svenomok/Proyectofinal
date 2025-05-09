@@ -1,0 +1,55 @@
+create database Proyectofinal;
+
+CREATE TABLE tbl_Citas(
+CodigoCita INT PRIMARY key, 
+CodigoPasciente INT, 
+CodigoEmpleado INT, 
+FechaIngreso DATETIME, 
+FechaEgreso DATETIME, 
+CostoTratamientos DECIMAL(10,2), 
+Observacoines VARCHAR(100), 
+UsuarioAuditoria VARCHAR(100),
+FechaAuditoria DATETIME );
+
+
+CREATE TABLE tbl_PagoCita(
+PagoCita INT PRIMARY KEY,
+CodigoCita INT, 
+MontoCita DECIMAL(10,2),
+Impuesto DECIMAL(10,2), 
+Descuento DECIMAL(10,2),
+TotalPago DECIMAL(10,2),
+FechaPago DATETIME, 
+TipoPago VARCHAR(50), 
+UsuarioAuditoria VARCHAR(100), 
+FechaAuditoria  DATETIME, 
+FOREIGN KEY (CodigoCita) REFERENCES	tbl_Citas(CodigoCita)
+);
+
+CREATE TABLE tbl_Medicamentos(
+CodigoMedicamento INT PRIMARY KEY, 
+Nombre VARCHAR(100), 
+TipoMedicamento VARCHAR(100),
+Precio DECIMAL(10,2), 
+stock INT, 
+FechaVencimiento DATETIME, 
+Estado VARCHAR(10),
+UsuarioAuditoria VARCHAR(100),
+FechaAuditoria DATETIME
+
+);
+
+
+CREATE TABLE tbl_Tratamientos(
+CodigoTratamiento INT PRIMARY KEY, 
+CodigoCita INT, 
+CodigoMedicamento INT, 
+Costo DECIMAL(10,2), 
+FechaTratamiento DATETIME, 
+Estado VARCHAR(20),
+UsuarioAuditoria VARCHAR(100),
+FechaAuditoria DATETIME, 
+FOREIGN KEY(CodigoCita) REFERENCES tbl_Citas(CodigoCita),
+FOREIGN KEY(CodigoMedicamento) REFERENCES tbl_Medicamentos(CodigoMedicamento)	
+);
+
