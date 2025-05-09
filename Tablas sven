@@ -1,0 +1,49 @@
+--Data base 
+
+
+create database Proyectofinal
+
+use Proyectofinal
+
+
+create table tbl_Empleados
+(
+    CodigoEmpleado int primary key identity (1,1) NOT NULL,
+	Nombres varchar(100),
+	TipoTrabajo varchar(100),
+	Especialidad varchar(100),
+	Sueldo decimal(10,2),
+	FechaAlta Datetime,
+	Estado varchar(20),
+	UsuarioAuditoria varchar(100),
+	FechaAuditoria Datetime,
+);
+
+create table tbl_usuarios 
+(
+    CodigoUsuario int primary key identity (1,1) not null,
+    CodigoEmpleado int,
+    Usuario varchar(50),
+    Clave varchar(256),
+    TipoUsuario varchar(20),
+    Estado varchar(20),
+    UsuarioAuditoria varchar(100),
+    FechaAuditoria DATETIME,
+    Foreign key (CodigoEmpleado) References tbl_Empleados(CodigoEmpleado)
+);
+
+
+create table tbl_PagoEmpleados
+(
+    CodigoPago int primary key identity (1,1) not null,
+	CodigoEmpleado int,
+	FechaPago Datetime,
+	Sueldo Decimal(10,2),
+	Bono Decimal(10,2),
+	MontoHorasE decimal(10,2),
+	TotalMonto decimal(10,2),
+	Estado varchar(20),
+	UsuarioAuditoria varchar(100),
+	FechaAuditoria datetime,
+	Foreign key (codigoEmpleado) References tbl_Empleados(CodigoEmpleado)
+);
